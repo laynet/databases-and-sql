@@ -26,31 +26,210 @@ String, integet, object
 
 7. Given this payments table, provide an English description of the following queries and include their results:
 show the collumns containing information about date and amount from inside the payments table.
-result: the dates and amounts 
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE payments(
+      "date"   DATE,
+      "payee"  VARCHAR(32),
+      "amount" DECIMAL(13,4),
+      "memo"   TEXT
+    );
+    
+    INSERT INTO payments
+      ("date",       "payee",                "amount", "memo")
+    VALUES
+      ('2016-05-01', 'West Hill Apartments',  1500.00, 'Rent'),
+      ('2016-05-10', 'Best Toy Store',        37.00,   'Beanie Babies'),
+      ('2016-05-15', 'Mega Foods',            124.93,  'Groceries'),
+      ('2016-05-23', 'Shoes R Cool',          54.72,   'Athletic shoes');
+    
+
+---
+
+**Query #1**
+
+    SELECT date, amount FROM payments;
+
+| date                     | amount    |
+| ------------------------ | --------- |
+| 2016-05-01T00:00:00.000Z | 1500.0000 |
+| 2016-05-10T00:00:00.000Z | 37.0000   |
+| 2016-05-15T00:00:00.000Z | 124.9300  |
+| 2016-05-23T00:00:00.000Z | 54.7200   |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/5gVGFmB8Aq66SejCFEbfdd/0)
+
 show the collumn contatining information about the amount from inside the payments table if the amount is less than 500.
-result: every amount less than 500
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE payments(
+      "date"   DATE,
+      "payee"  VARCHAR(32),
+      "amount" DECIMAL(13,4),
+      "memo"   TEXT
+    );
+    
+    INSERT INTO payments
+      ("date",       "payee",                "amount", "memo")
+    VALUES
+      ('2016-05-01', 'West Hill Apartments',  1500.00, 'Rent'),
+      ('2016-05-10', 'Best Toy Store',        37.00,   'Beanie Babies'),
+      ('2016-05-15', 'Mega Foods',            124.93,  'Groceries'),
+      ('2016-05-23', 'Shoes R Cool',          54.72,   'Athletic shoes');
+    
+
+---
+
+**Query #1**
+
+    SELECT amount FROM payments WHERE amount > 500;
+
+| amount    |
+| --------- |
+| 1500.0000 |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/5gVGFmB8Aq66SejCFEbfdd/0)
+
 show all the collumns containing information from inside the payments table where the payee is 'Mega Foods'
-result: every collumn with 'Mega Food'
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE payments(
+      "date"   DATE,
+      "payee"  VARCHAR(32),
+      "amount" DECIMAL(13,4),
+      "memo"   TEXT
+    );
+    
+    INSERT INTO payments
+      ("date",       "payee",                "amount", "memo")
+    VALUES
+      ('2016-05-01', 'West Hill Apartments',  1500.00, 'Rent'),
+      ('2016-05-10', 'Best Toy Store',        37.00,   'Beanie Babies'),
+      ('2016-05-15', 'Mega Foods',            124.93,  'Groceries'),
+      ('2016-05-23', 'Shoes R Cool',          54.72,   'Athletic shoes');
+    
+
+---
+
+**Query #1**
+
+    SELECT * FROM payments WHERE payee = 'Mega Foods';
+
+| date                     | payee      | amount   | memo      |
+| ------------------------ | ---------- | -------- | --------- |
+| 2016-05-15T00:00:00.000Z | Mega Foods | 124.9300 | Groceries |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/5gVGFmB8Aq66SejCFEbfdd/0)
 
 8. Given this users table, write SQL queries using the following criteria and include the output:
 
 The email and sign-up date for the user named DeAndre Data.
-SELECT email, date 
-FROM users 
-WHERE 'DeAndre Data';
+SELECT email, signup FROM users WHERE name = 'DeAndre Data';
 
-output: deandra data's email and sign-up date
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE users(
+      "userid" INTEGER,
+      "name"   VARCHAR(32),
+      "email"  VARCHAR(64),
+      "signup" DATE
+    );
+        
+    INSERT INTO users
+        ("userid", "name",              "email",                        "signup")
+    VALUES
+        ( 1,       'Aleesia Algorithm', 'aleesia.algorithm@uw.edu',     '2014-10-24'),
+        ( 2,       'DeAndre Data',      'datad@comcast.net',            '2008-01-20'),
+        ( 3,       'Chris Collection',  'chris.collection@outlook.com', '2012-01-20'),
+        ( 4,       'Brandy Boolean',    'bboolean@nasa.gov',            '1999-10-15');
+    
+
+---
+
+**Query #1**
+
+    SELECT email, signup FROM users WHERE name = 'DeAndre Data';
+
+| email             | signup                   |
+| ----------------- | ------------------------ |
+| datad@comcast.net | 2008-01-20T00:00:00.000Z |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/0)
 
 The user ID for the user with email 'aleesia.algorithm@uw.edu'.
-SELECT ID 
-FROM users 
-WHERE 'aleesia.algorithm@uw.edu';
+SELECT userid FROM users WHERE email = 'aleesia.algorithm@uw.edu';
 
-output: the userID for aleesia.algorithm@uw.edu
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE users(
+      "userid" INTEGER,
+      "name"   VARCHAR(32),
+      "email"  VARCHAR(64),
+      "signup" DATE
+    );
+        
+    INSERT INTO users
+        ("userid", "name",              "email",                        "signup")
+    VALUES
+        ( 1,       'Aleesia Algorithm', 'aleesia.algorithm@uw.edu',     '2014-10-24'),
+        ( 2,       'DeAndre Data',      'datad@comcast.net',            '2008-01-20'),
+        ( 3,       'Chris Collection',  'chris.collection@outlook.com', '2012-01-20'),
+        ( 4,       'Brandy Boolean',    'bboolean@nasa.gov',            '1999-10-15');
+    
+
+---
+
+**Query #1**
+
+    SELECT userid FROM users WHERE email = 'aleesia.algorithm@uw.edu';
+
+| userid |
+| ------ |
+| 1      |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/0)
 
 All the columns for the user ID equal to 4.
-SELECT *
-FROM users 
-WHERE ID = 4;
+SELECT * FROM users WHERE userid  = '4';
 
-output: ID # 4
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE users(
+      "userid" INTEGER,
+      "name"   VARCHAR(32),
+      "email"  VARCHAR(64),
+      "signup" DATE
+    );
+        
+    INSERT INTO users
+        ("userid", "name",              "email",                        "signup")
+    VALUES
+        ( 1,       'Aleesia Algorithm', 'aleesia.algorithm@uw.edu',     '2014-10-24'),
+        ( 2,       'DeAndre Data',      'datad@comcast.net',            '2008-01-20'),
+        ( 3,       'Chris Collection',  'chris.collection@outlook.com', '2012-01-20'),
+        ( 4,       'Brandy Boolean',    'bboolean@nasa.gov',            '1999-10-15');
+    
+
+---
+
+**Query #1**
+
+    SELECT * FROM users WHERE userid  = '4';
+
+| userid | name           | email             | signup                   |
+| ------ | -------------- | ----------------- | ------------------------ |
+| 4      | Brandy Boolean | bboolean@nasa.gov | 1999-10-15T00:00:00.000Z |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/0)
