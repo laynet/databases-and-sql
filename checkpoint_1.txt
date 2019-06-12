@@ -4,7 +4,7 @@
 42 - integer
 09/02/1945 - date
 98.7 - float
-$15.99 - float
+$15.99 - small money
 
 2. Explain when a database would be used. Explain when a text file would be used.
 Use a database when you have a lot of data that you need to be able to access quickly with the possibility of the data growing/changing and the way in which you query it will change in the future.
@@ -39,12 +39,18 @@ SELECT email, date
 FROM users 
 WHERE 'DeAndre Data';
 
+output: deandra data's email and sign-up date
+
 The user ID for the user with email 'aleesia.algorithm@uw.edu'.
 SELECT ID 
 FROM users 
 WHERE 'aleesia.algorithm@uw.edu';
 
+output: the userID for aleesia.algorithm@uw.edu
+
 All the columns for the user ID equal to 4.
 SELECT *
 FROM users 
 WHERE ID = 4;
+
+output: ID # 4
