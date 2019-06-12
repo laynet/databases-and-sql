@@ -1,0 +1,50 @@
+1. What data types do each of these values represent?
+
+"A Clockwork Orange" - string
+42 - integer
+09/02/1945 - date
+98.7 - float
+$15.99 - float
+
+2. Explain when a database would be used. Explain when a text file would be used.
+Use a database when you have a lot of data that you need to be able to access quickly with the possibility of the data growing/changing and the way in which you query it will change in the future.
+use a text file when you don't have a lot of data and it won't change much in the future 
+
+3. Describe one difference between SQL and other programming languages.
+SQL is declarative and not procedural
+
+4. In your own words, explain how the pieces of a database system fit together at a high level.
+I think of it as the table being the gross and the collumns and rows being the subtle, even though you query the subtle first in SQL, the table holds all the information and you just keep narrowing your search starting from the table and working down to the value.
+5. Explain the meaning of table, row, column, and value.
+table - a collection of data that stores the rows and collumns
+row - a structure inside of a table, also called a tuple
+collumn - a set of data values of a particular type holding one value for each row of the table
+value - the data
+
+6. List three data types that can be used in a table.
+String, integet, object
+
+7. Given this payments table, provide an English description of the following queries and include their results:
+show the collumns containing information about date and amount from inside the payments table.
+result: the dates and amounts 
+show the collumn contatining information about the amount from inside the payments table if the amount is less than 500.
+result: every amount less than 500
+show all the collumns containing information from inside the payments table where the payee is 'Mega Foods'
+result: every collumn with 'Mega Food'
+
+8. Given this users table, write SQL queries using the following criteria and include the output:
+
+The email and sign-up date for the user named DeAndre Data.
+SELECT email, date 
+FROM users 
+WHERE 'DeAndre Data';
+
+The user ID for the user with email 'aleesia.algorithm@uw.edu'.
+SELECT ID 
+FROM users 
+WHERE 'aleesia.algorithm@uw.edu';
+
+All the columns for the user ID equal to 4.
+SELECT *
+FROM users 
+WHERE ID = 4;
