@@ -12,8 +12,9 @@
         age integer,
         rsvp boolean,
         guests integer,
-        meals floating
-    )
+        meals float
+    );
+
 *Which data type would you use to store each of the following pieces of information?
     -First and last name.
         text
@@ -30,8 +31,8 @@
         last_name text,
         rsvp boolean,
         guests integer,
-        meals floating
-    )
+        meals float
+    );
 
 *Write a command that adds a column to track whether the guest sent a thank you card.
     ALTER TABLE wedding ADD COLUMN thank_you boolean;
@@ -54,12 +55,13 @@
         publishing_date date,
         total_copies integer,
         available_copies integer
-    )
+    );
+
 *Find three books and add their information to the table.
     INSERT INTO books (isbn, title, author, genre, publishing_date, total_copies, available_copies ) VALUES
-    (0143116711, 'The Third Reich at War', 'Richard J. Evans', 'non-fiction', 02/23/2010, 1, 1)
-    (9780132350884, 'Clean Code', 'Robert C. Martin', 'How To', 08/11/2008, 1, 0)
-    (1594202869, 'Pox: An American History', 'Michael Willrich', 'non-fiction', 03/31/2011, 1, 1)
+    (0143116711, 'The Third Reich at War', 'Richard J. Evans', 'non-fiction', 02/23/2010, 1, 1),
+    (9780132350884, 'Clean Code', 'Robert C. Martin', 'How To', 08/11/2008, 1, 0),
+    (1594202869, 'Pox: An American History', 'Michael Willrich', 'non-fiction', 03/31/2011, 1, 1);
 
 *Someone has just checked out one of the books. Change the number of available copies to 1 fewer.
     UPDATE books SET available_copies=0 WHERE isbn=0143116711;
@@ -77,13 +79,13 @@
         orbiting_body text,
         operating boolean,
         miles_from_earth integer
-    )
+    );
 
 *Add three non-Earth-orbiting satellites to the table.
     INSERT INTO spacecrafts (id, name, year_launched, country, mission, orbiting_body, operating, miles_from_earth) VALUES
-    (001, 'Luna 10', 1966, 'Russia', 'Lunar Orbiter', 'Earth's Moon', false, 238,900)
-    (002, 'Akatsuki', 2010, 'Japan', 'Venusian probe', 'Venus', true, 162,000,000)
-    (003, '2001 Mars Odyssey', 2001, 'USA', 'Map the surface of Mars and act as a relay for the Curiosity rover', 'Mars', true, 33,900,000)
+    (001, 'Luna 10', 1966, 'Russia', 'Lunar Orbiter', 'Earth's Moon', false, 238,900),
+    (002, 'Akatsuki', 2010, 'Japan', 'Venusian probe', 'Venus', true, 162,000,000),
+    (003, '2001 Mars Odyssey', 2001, 'USA', 'Map the surface of Mars and act as a relay for the Curiosity rover', 'Mars', true, 33,900,000);
 
 *Remove one of the satellites from the table since it has just crashed into the planet.
     DELETE from spacecrafts WHERE id=003;
@@ -101,13 +103,13 @@
         timestamp timestamp,
         read boolean,
         chain_id integer
-    )
+    );
 
 *Add three new emails to the inbox.
     INSERT INTO inbox (id, subject_line, sender, cc, body, timestamp, read, chain_id) VALUES
-    (001, 'yooooooo', 'Caitlin', 'Ana', 'sup', '2019-06-14 14:40:00', true, 1001)
-    (002, 'hi', 'Natalia', 'Richard', 'bye', '2018-04-13 14:36:00', false, 1002)
-    (003, 'lunch?', 'Angie', 'Carly', 'Pittsfield cafe?', '2018-04-13 19:45:00', true, 1003)
+    (001, 'yooooooo', 'Caitlin', 'Ana', 'sup', '2019-06-14 14:40:00', true, 1001),
+    (002, 'hi', 'Natalia', 'Richard', 'bye', '2018-04-13 14:36:00', false, 1002),
+    (003, 'lunch?', 'Angie', 'Carly', 'Pittsfield cafe?', '2018-04-13 19:45:00', true, 1003);
 
 *You deleted one of the emails, so write a command to remove the row from the inbox table.
     DELETE FROM inbox WHERE id=001;
