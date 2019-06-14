@@ -1,0 +1,257 @@
+1. Write out a generic SELECT statement.
+    SELECT date FROM log 
+
+2. Create a fun way to remember the order of operations in a SELECT statement, such as a mnemonic.
+    SELECT, FROM, WHERE sally from worlorn (it's a planet in a book)
+
+3.Given this dogs table, write queries to select the following pieces of data:
+
+*Display the name, gender, and age of all dogs that are part Labrador.
+    SELECT name, gender, age 
+    FROM dogs 
+    WHERE breed LIKE '%labrador%';
+*Display the ids of all dogs that are under 1 year old.
+    SELECT id
+    FROM dogs 
+    WHERE age < 1;
+
+*Display the name and age of all dogs that are female and over 35lbs.
+    SELECT name, age 
+    FROM dogs 
+    WHERE geneder='F' AND weight > 35;
+
+*Display all of the information about all dogs that are not Shepherd mixes.
+    SELECT *
+    FROM dogs
+    WHERE breed NOT LIKE '%sheperd%';
+
+*Display the id, age, weight, and breed of all dogs that are either over 60lbs or Great Danes.
+    SELECT id, age, weight, breed 
+    FROM dogs 
+    WHERE weight > 60 OR breed='great dane';
+
+4. Given this cats table, what records are returned from these queries?
+
+*SELECT name, adoption_date FROM cats;
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE cats(
+      "id"            INTEGER,
+      "name"          VARCHAR(16),
+      "gender"        VARCHAR(1),
+      "age"           INTEGER,
+      "intake_date"   DATE,
+      "adoption_date" DATE
+    );
+        
+    INSERT INTO cats
+        ("id", "name",   "gender", "age", "intake_date", "adoption_date")
+    VALUES
+        ( 1, 'Mushi',    'M',       1,    '2016-01-09',  '2016-03-22'),
+        ( 2, 'Seashell', 'F',       7,    '2016-01-09',   NULL),
+        ( 3, 'Azul',     'M',       3,    '2016-01-11',  '2016-04-17'),
+        ( 4, 'Victoire', 'M',       7,    '2016-01-11',  '2016-09-01'),
+        ( 5, 'Nala',     'F',       1,    '2016-01-12',   NULL);
+    
+
+---
+
+**Query #1**
+
+    SELECT name, adoption_date FROM cats;
+
+| name     | adoption_date            |
+| -------- | ------------------------ |
+| Mushi    | 2016-03-22T00:00:00.000Z |
+| Seashell |                          |
+| Azul     | 2016-04-17T00:00:00.000Z |
+| Victoire | 2016-09-01T00:00:00.000Z |
+| Nala     |                          |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/55ePhx9NLn7PzdGnebFaG7/0)
+*SELECT name, age FROM cats;
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE cats(
+      "id"            INTEGER,
+      "name"          VARCHAR(16),
+      "gender"        VARCHAR(1),
+      "age"           INTEGER,
+      "intake_date"   DATE,
+      "adoption_date" DATE
+    );
+        
+    INSERT INTO cats
+        ("id", "name",   "gender", "age", "intake_date", "adoption_date")
+    VALUES
+        ( 1, 'Mushi',    'M',       1,    '2016-01-09',  '2016-03-22'),
+        ( 2, 'Seashell', 'F',       7,    '2016-01-09',   NULL),
+        ( 3, 'Azul',     'M',       3,    '2016-01-11',  '2016-04-17'),
+        ( 4, 'Victoire', 'M',       7,    '2016-01-11',  '2016-09-01'),
+        ( 5, 'Nala',     'F',       1,    '2016-01-12',   NULL);
+    
+
+---
+
+**Query #1**
+
+    SELECT name, age FROM cats;
+
+| name     | age |
+| -------- | --- |
+| Mushi    | 1   |
+| Seashell | 7   |
+| Azul     | 3   |
+| Victoire | 7   |
+| Nala     | 1   |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/55ePhx9NLn7PzdGnebFaG7/0)
+
+5. From the cats table, write queries to select the following pieces of data.
+
+*Display all the information about all of the available cats.
+    SELECT *
+    FROM cats;
+
+*Display the name and sex of all cats who are 7 years old.
+    SELECT name, sex
+    FROM cats 
+    WHERE age > 7;
+
+*Find all of the names of the cats, so you don’t choose duplicate names for new cats.
+    SELECT name FROM cats;
+
+6. List each comparison operator and explain when you would use it. Include a real world example for each.
+    < greater than - used to compare values to find lagest. 2 things > 0 thing
+    > less than - used to compare values and find smallest. 1 thing < 0 thing
+    <= greater than or equal to - used to compare value and find the largest or the on that is equal to the comparison 9 things >= 9 things
+    >= less than or equal to - used to compare value and find the smallest or the one that is equal to the comparison. 9 things <= 12 things
+    = equals - used to compare 2 values. 5 things = 5 things
+    != not equal - used to compare value 2 values to see if they are equal to each other 6 things != 4 things
+    <> greater than or less than - compares values like the != 1 thing <> 3 things
+    LIKE used with strings along with % to find partial matches. '%term' would return all the terminator movies in a table of movies as well as any other movie i'm not thinking of with term in it. terms of endearment. etc.
+    BETWEEN determines if values are between or equal to parameters BETWEEN 0 and 6 would return 1, 2, 3, 4, 5
+    IS DISTINCT FROM used like the <> operator but can be used if a value is null. 0 IS DISNTICT FROM (no value entered)
+    IS TRUE/IS FALSE  determines if an expression is true/false and returns either true or false. (value) IS TRUE would return true is there is a value
+    IS NULL determines if contents of cell are null. empty cell IS NULL would return cells with null value. 
+    AND requires both expressions to be true for the row to be returned. born > 1980 AND < 1985 would return people or whateve we're searching that were born between 1980 and 1985
+    OR requires one of the other comparison to be true. born 1980 OR 1981 would return people/whatever that were born in 1980 or 1981
+    NOT requires expression to be false born NOT 1980 would return all the names that were born in every year expcet 1980.
+
+7. From the cats table, what data is returned from these queries?
+*SELECT name FROM cats WHERE gender = ‘F’;
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE cats(
+      "id"            INTEGER,
+      "name"          VARCHAR(16),
+      "gender"        VARCHAR(1),
+      "age"           INTEGER,
+      "intake_date"   DATE,
+      "adoption_date" DATE
+    );
+        
+    INSERT INTO cats
+        ("id", "name",   "gender", "age", "intake_date", "adoption_date")
+    VALUES
+        ( 1, 'Mushi',    'M',       1,    '2016-01-09',  '2016-03-22'),
+        ( 2, 'Seashell', 'F',       7,    '2016-01-09',   NULL),
+        ( 3, 'Azul',     'M',       3,    '2016-01-11',  '2016-04-17'),
+        ( 4, 'Victoire', 'M',       7,    '2016-01-11',  '2016-09-01'),
+        ( 5, 'Nala',     'F',       1,    '2016-01-12',   NULL);
+    
+
+---
+
+**Query #1**
+
+    SELECT name FROM cats WHERE gender='F';
+
+| name     |
+| -------- |
+| Seashell |
+| Nala     |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/55ePhx9NLn7PzdGnebFaG7/0)
+
+*SELECT name FROM cats WHERE age <> 3;
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE cats(
+      "id"            INTEGER,
+      "name"          VARCHAR(16),
+      "gender"        VARCHAR(1),
+      "age"           INTEGER,
+      "intake_date"   DATE,
+      "adoption_date" DATE
+    );
+        
+    INSERT INTO cats
+        ("id", "name",   "gender", "age", "intake_date", "adoption_date")
+    VALUES
+        ( 1, 'Mushi',    'M',       1,    '2016-01-09',  '2016-03-22'),
+        ( 2, 'Seashell', 'F',       7,    '2016-01-09',   NULL),
+        ( 3, 'Azul',     'M',       3,    '2016-01-11',  '2016-04-17'),
+        ( 4, 'Victoire', 'M',       7,    '2016-01-11',  '2016-09-01'),
+        ( 5, 'Nala',     'F',       1,    '2016-01-12',   NULL);
+    
+
+---
+
+**Query #1**
+
+    SELECT name FROM cats WHERE age <> 3;
+
+| name     |
+| -------- |
+| Mushi    |
+| Seashell |
+| Victoire |
+| Nala     |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/55ePhx9NLn7PzdGnebFaG7/0)
+
+*SELECT ID FROM cats WHERE name != ‘Mushi’ AND gender = ‘M’;
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE cats(
+      "id"            INTEGER,
+      "name"          VARCHAR(16),
+      "gender"        VARCHAR(1),
+      "age"           INTEGER,
+      "intake_date"   DATE,
+      "adoption_date" DATE
+    );
+        
+    INSERT INTO cats
+        ("id", "name",   "gender", "age", "intake_date", "adoption_date")
+    VALUES
+        ( 1, 'Mushi',    'M',       1,    '2016-01-09',  '2016-03-22'),
+        ( 2, 'Seashell', 'F',       7,    '2016-01-09',   NULL),
+        ( 3, 'Azul',     'M',       3,    '2016-01-11',  '2016-04-17'),
+        ( 4, 'Victoire', 'M',       7,    '2016-01-11',  '2016-09-01'),
+        ( 5, 'Nala',     'F',       1,    '2016-01-12',   NULL);
+    
+
+---
+
+**Query #1**
+
+    SELECT ID FROM cats WHERE name != 'Mushi' AND gender='M';
+
+| id  |
+| --- |
+| 3   |
+| 4   |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/55ePhx9NLn7PzdGnebFaG7/0)
