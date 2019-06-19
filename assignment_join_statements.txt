@@ -23,24 +23,39 @@
 
 7. Using this Employee schema and data, write queries to find the following information:
 *List all employees and all shifts.
+
+
 **Query #1**
 
-    SELECT *
-    FROM employees
-    JOIN shifts
-    ON employees.id = shifts.id;
+    SELECT employees.name, shifts.date, shifts.start_time, shifts.end_time
+    FROM employees, shifts, scheduled_shifts
+    WHERE employees.id = scheduled_shifts.employee_id AND shifts.id = scheduled_shifts.shift_id;
 
-| id  | name               | id  | date       | start_time | end_time |
-| --- | ------------------ | --- | ---------- | ---------- | -------- |
-| 1   | Hermione Granger   | 1   | 1998-03-09 | 08:00:00   | 12:00:00 |
-| 2   | Ronald Weasley     | 2   | 1998-03-09 | 08:00:00   | 16:00:00 |
-| 3   | Luna Lovegood      | 3   | 1998-03-09 | 12:00:00   | 16:00:00 |
-| 4   | Draco Malfoy       | 4   | 1998-03-09 | 12:00:00   | 20:00:00 |
-| 5   | Padma Patil        | 5   | 1998-03-09 | 16:00:00   | 20:00:00 |
-| 6   | Neville Longbottom | 6   | 1998-03-10 | 08:00:00   | 12:00:00 |
-| 7   | Cedric Diggory     | 7   | 1998-03-10 | 08:00:00   | 16:00:00 |
-| 8   | Cho Chang          | 8   | 1998-03-10 | 12:00:00   | 16:00:00 |
-| 9   | Dean Thomas        | 9   | 1998-03-10 | 12:00:00   | 20:00:00 |
+| name             | date       | start_time | end_time |
+| ---------------- | ---------- | ---------- | -------- |
+| Hermione Granger | 1998-03-09 | 08:00:00   | 16:00:00 |
+| Hermione Granger | 1998-03-10 | 08:00:00   | 16:00:00 |
+| Hermione Granger | 1998-03-11 | 08:00:00   | 16:00:00 |
+| Hermione Granger | 1998-03-12 | 08:00:00   | 16:00:00 |
+| Hermione Granger | 1998-03-13 | 08:00:00   | 16:00:00 |
+| Ronald Weasley   | 1998-03-10 | 12:00:00   | 16:00:00 |
+| Ronald Weasley   | 1998-03-12 | 12:00:00   | 16:00:00 |
+| Luna Lovegood    | 1998-03-09 | 12:00:00   | 16:00:00 |
+| Luna Lovegood    | 1998-03-11 | 12:00:00   | 16:00:00 |
+| Luna Lovegood    | 1998-03-13 | 12:00:00   | 16:00:00 |
+| Draco Malfoy     | 1998-03-11 | 16:00:00   | 20:00:00 |
+| Draco Malfoy     | 1998-03-12 | 16:00:00   | 20:00:00 |
+| Draco Malfoy     | 1998-03-13 | 16:00:00   | 20:00:00 |
+| Padma Patil      | 1998-03-09 | 12:00:00   | 20:00:00 |
+| Padma Patil      | 1998-03-10 | 12:00:00   | 20:00:00 |
+| Padma Patil      | 1998-03-11 | 12:00:00   | 20:00:00 |
+| Padma Patil      | 1998-03-09 | 08:00:00   | 12:00:00 |
+| Padma Patil      | 1998-03-10 | 08:00:00   | 12:00:00 |
+| Padma Patil      | 1998-03-11 | 08:00:00   | 12:00:00 |
+| Cho Chang        | 1998-03-12 | 12:00:00   | 20:00:00 |
+| Cho Chang        | 1998-03-13 | 12:00:00   | 20:00:00 |
+| Dean Thomas      | 1998-03-09 | 16:00:00   | 20:00:00 |
+| Dean Thomas      | 1998-03-10 | 16:00:00   | 20:00:00 |
 
 ---
 
@@ -107,15 +122,31 @@
 [View on DB Fiddle](https://www.db-fiddle.com/f/tpodLv3A43VL4gHqohqx2o/0)
 
 *Lists of all cats and all dogs who have not been adopted.
-| animal name |
-| ----------- |
-| Boujee      |
-| Lassie      |
-| Marley      |
-| Marmaduke   |
-| Munchkin    |
-| Nala        |
-| Seashell    |
+
+
+**Query #1**
+
+    SELECT cats.name
+    FROM cats
+    LEFT OUTER JOIN cat_adoptions
+    ON cats.id = cat_adoptions.cat_id
+    WHERE adopter_id IS NULL
+    UNION
+    SELECT dogs.name
+    FROM dogs
+    LEFT OUTER JOIN dog_adoptions
+    ON dogs.id = dog_adoptions.dog_id
+    WHERE adopter_id IS NULL;
+
+| name      |
+| --------- |
+| Lassie    |
+| Boujee    |
+| Marmaduke |
+| Seashell  |
+| Munchkin  |
+| Nala      |
+| Marley    |
 
 ---
 
